@@ -2,13 +2,16 @@ import React, { useEffect, useState } from 'react';
 import Chat from './chat'
 import io from "socket.io-client";
 import { useNavigate } from 'react-router-dom';
-
+import styled from "styled-components";
 const socket = io("http://localhost:3001");
+// const socket = io("http://chat-37391832.af-south-1.elb.amazonaws.com");
+
+// http://chat-37391832.af-south-1.elb.amazonaws.com/
 // import { Container } from './styles';
 
 const Register: React.FC = () => {
-    const [username, setUsername] = useState("")
-    const [room, setRoom] = useState("")
+    const [username, setUsername] = useState("user1")
+    const [room, setRoom] = useState("x1")
     const [showChat, setshowChat] = useState(false)
 
     const navigate = useNavigate();
@@ -21,28 +24,57 @@ const Register: React.FC = () => {
       }
     };
   
-    useEffect(() => {
-        socket.on('receive', data =>{
-          console.log(data);
-          
-        })
-    }, [socket])
-    
+ 
     
     return (
       showChat?
       <Chat username={username} socket={socket} room={room}/>:
 
       <div className="register">
-        <form action="">
-          <h1>{username}</h1>
-            <input type="username"  placeholder="username" value={username} onChange={e=>{setUsername(e.target.value)}}/>
-            <input type="room"  placeholder="room" value={room} onChange={e=>{setRoom(e.target.value)}}/>
-          <button onClick={joinRoom}>Join</button>
-         
-        </form>
+        <Container>
+            <Form action="">
+              <h1>{username}</h1>
+                <Input type="username"  placeholder="username" value={username} onChange={e=>{setUsername(e.target.value)}}/>
+                <Input type="room"  placeholder="room" value={room} onChange={e=>{setRoom(e.target.value)}}/>
+              <Button onClick={joinRoom}>Join</Button>
+            </Form>
+        </Container>
       </div>
     );
 }
 
 export default Register;
+
+const Container = styled.div`
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+`
+
+const Form = styled.form`
+    color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`
+
+const Input = styled.input`
+    color: black;
+    border:  1px solid black;
+    margin: 5px;
+    padding: 5px;
+    border:  2px solid gray;
+    border-radius: 5px;
+`
+
+const Button = styled.button`
+    color: black;
+    border:  2px solid gray;
+    margin: 5px;
+    padding: 5px;
+    background-color: white;
+    border-radius: 5px;
+`
