@@ -34,14 +34,12 @@ const Chat:FC<Props> =({socket, username, room}) => {
               room: room,
               text: text,
           })
+          setText(text => '')
           console.log(messages);
-          
         }
     }
 
     const receiveMessage = (message:Message) => {
-        console.log('---');
-
         let newMessage:Message = {...message, date:new Date(), id: uuidv4(), me: false};
       
         setMessages(messages => [...messages, newMessage])
