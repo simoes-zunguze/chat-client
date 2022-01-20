@@ -3,11 +3,8 @@ import Chat from './chat'
 import io from "socket.io-client";
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-const socket = io("http://localhost:3001");
-// const socket = io("http://chat-37391832.af-south-1.elb.amazonaws.com");
-
-// http://chat-37391832.af-south-1.elb.amazonaws.com/
-// import { Container } from './styles';
+// const socket = io("http://localhost:3001");
+const socket = io("https://chat.zunguze.com");
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState("user1")
